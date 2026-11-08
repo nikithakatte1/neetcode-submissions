@@ -1,0 +1,22 @@
+class Solution {
+    public int trap(int[] height) {
+        int n = height.length;
+        int[] leftMax = new int[height.length];
+        int[] rightMax = new int[height.length];
+        leftMax[0] = height[0];
+        rightMax[n-1] = height[n-1];
+        int res = 0;
+
+        for(int i = 1; i < n; i++) {
+            leftMax[i] = Math.max(height[i], leftMax[i-1]);
+        }
+        for(int j = n -2; j >= 0; j--) {
+            rightMax[j] = Math.max(height[j], rightMax[j+1]);
+        }
+        for (int i = 0; i< leftMax.length; i++) {
+            int minBuilding = Math.min(leftMax[i], rightMax[i]);
+            res = res + (minBuilding - height[i]);
+        }
+        return res;
+    }
+}
